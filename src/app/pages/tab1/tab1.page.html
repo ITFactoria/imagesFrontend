@@ -11,13 +11,16 @@
 
 <ion-content [fullscreen]="true">
 
-<!-- Refresher -->
+<!-- Default Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
 <!-- Post -->
 <app-posts [posts] = 'posts'></app-posts>
 
 <!-- Infinite Scroll -->
-<ion-infinite-scroll threshold="100px" (ionInfinite)="loadPosts($event)">
+<ion-infinite-scroll [disabled]="!infScrollStatus" threshold="100px" (ionInfinite)="loadPosts($event)">
   <ion-infinite-scroll-content
     loadingSpinner="bubbles"
     loadingText="Loading more data...">

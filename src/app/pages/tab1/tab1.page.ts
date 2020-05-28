@@ -10,30 +10,36 @@ import { IPost } from 'src/app/interfaces/interfaces';
 export class Tab1Page implements OnInit {
 
   posts: IPost[] = [];
+  infScrollStatus : boolean;
+  pullToRequest : boolean;
 
 
   constructor(private _postsService: PostsService) { }
 
+  
   ngOnInit() {
     this.loadPosts();
-    //this._postsService.getPosts();
+  }
 
-
+  doRefresh(event){
+    this.posts =[];
+    this.infScrollStatus = true;
+    this.pullToRequest = true;
+    this.loadPosts(event, this.pullToRequest)
 
   }
 
-  loadPosts(event?) {
+  loadPosts(event?, pullToRequest: boolean = false) {
 
-    this._postsService.getPosts().subscribe(res => {
-      console.log("tab res:", res);
+    this._postsService.getPosts(pullToRequest).subscribe(res => {
+      console.log("TAB! Posts: ", res)
       this.posts.push(...res.posts);
 
       if (event) {
         event.target.complete();
-        console.log("leng: ", res.posts.length)
-
         if (res.posts.length === 0) {
-          event.target.disabled = true;
+          this.infScrollStatus   = false;
+          //event.target.disabled = true;
         }
 
       }

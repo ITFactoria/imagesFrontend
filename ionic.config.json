@@ -1,5 +1,7 @@
 {
   "name": "photobook",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

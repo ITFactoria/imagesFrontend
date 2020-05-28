@@ -26,25 +26,12 @@ export class PostsService {
 
   }
 
-  getPosts() {
+  getPosts(pullToRequest: boolean = false) {
 
-    this.pagePost++;
+    if(pullToRequest){this.pagePost = 0}
     
+    this.pagePost++;
     return this._httpClient.get<IRespuestaPosts>(`${HOST}/api/post?page=${this.pagePost}`, {headers:  this.httpHeaders}).pipe(catchError(this.formatErrors));
-    /*this._httpClient.get<IRespuestaPosts>(`${HOST}/api/post?page=${this.pagePost}}`, { headers: this.httpHeaders }).subscribe(respuesta => {
-      console.log("Service res: ", respuesta);
-      //return respuesta;
-    });*/
-
-    /*this.pagePost = 2;
-    this._httpClient.get<IRespuestaPosts>(`${HOST}/api/post?page=${this.pagePost}`, { headers: this.httpHeaders }).subscribe(respuesta => {
-      console.log("Service res: ", respuesta);
-      //return respuesta;
-    });*/
-
-
-
-
-
+    
   }
 }

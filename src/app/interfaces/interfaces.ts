@@ -14,8 +14,14 @@ export interface IPost {
 }
 
 export interface IUser {
-  _id: string;
+  _id?: string;
   name: string;
   email: string;
-  
+  avatar?: string;
+  password?: string
+}
+
+export interface ILogin {
+  ok: boolean;
+  token: string;
 }
