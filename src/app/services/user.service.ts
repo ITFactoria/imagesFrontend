@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
-import { ILogin, IUser } from "../interfaces/interfaces";
+import { ILogin, IUser, IPost } from "../interfaces/interfaces";
 import { Storage } from '@ionic/storage';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -15,7 +15,7 @@ export class UserService {
 
   HOST = environment.url;
   token: string = null;
-  user: IUser;
+  private user: IUser;
   httpHeaders: HttpHeaders;
 
 
@@ -101,7 +101,7 @@ export class UserService {
     if (!this.token) {
       this._navCtrl.navigateRoot('/login');
       return Promise.resolve(false);
-      
+
 
     }
 
@@ -116,7 +116,8 @@ export class UserService {
         }
         else {
           this._navCtrl.navigateRoot('/login');
-          resolve(false) }
+          resolve(false)
+        }
       })
 
 
@@ -125,6 +126,47 @@ export class UserService {
 
 
   }
+
+  getUser() {
+
+    if (!this.user._id) {
+      this.validateToken();
+    }
+    return { ... this.user }
+  }
+
+  updateUser(user: IUser) {
+
+    return new Promise(resolve => {
+      console.log("USERSERVICE UPDATE: ", user);
+
+      let httpHeaders = new HttpHeaders({ 'x-token': this.token })
+
+      this.httpClient.put(`${this.HOST}/api/user/${user._id}`, user, { headers: httpHeaders })
+        .subscribe(res => {
+          console.log("RESP UPdATE SVC", res);
+
+          if (res['ok']) {
+            console.log("UPD OK: ", this.user);
+            this.saveToken(res['token'])
+
+            resolve(true);
+
+          }
+          else {
+            resolve(false)
+          }
+        })
+    })
+  }
+
+  async saveToken(token: string) {
+    this.token = this.token;
+    await this._storage.set('token', token)
+  }
+
+  
+
 
 
 

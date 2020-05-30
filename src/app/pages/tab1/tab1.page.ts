@@ -15,10 +15,13 @@ export class Tab1Page implements OnInit {
 
 
   constructor(private _postsService: PostsService) { }
-
   
   ngOnInit() {
     this.loadPosts();
+    this._postsService.nuevoPost.subscribe(post=>{
+      console.log("POST a UNSHIFT: ", post)
+      this.posts.unshift(post)
+    })
   }
 
   doRefresh(event){

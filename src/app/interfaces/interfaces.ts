@@ -4,10 +4,10 @@ export interface IRespuestaPosts {
 }
 
 export interface IPost {
-  img: any[];
+  img?: any[];
   _id: string;
-  message: string;
-  coordenadas: string;
+  message?: string;
+  coordenadas?: string;
   user: IUser;
   created: string;
   
