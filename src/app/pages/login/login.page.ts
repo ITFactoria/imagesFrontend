@@ -83,6 +83,8 @@ export class LoginPage implements OnInit {
     if (frmLogin.invalid) { return };
     
     let userOk = await this._userService.login(this.loginUser.email, this.loginUser.password);
+    console.log("LOGIN: userOK ", userOk)
+    
     if (userOk){
       console.log("Usuario valiodo");
       this._navctrl.navigateRoot('main/tabs/tab1', {animated: true})
@@ -94,10 +96,10 @@ export class LoginPage implements OnInit {
 
   }
 
-  async signUp(frmSignUp: NgForm) {
+  async signUp(frmRegistro: NgForm){
     console.log("SignUp");
 
-    if (frmSignUp.invalid) { return };
+    if (frmRegistro.invalid) { return };
     
     let userOk = await this._userService.signUp(this.signUpUser);
     if (userOk){
