@@ -35,7 +35,7 @@ export class Tab1Page implements OnInit {
   loadPosts(event?, pullToRequest: boolean = false) {
 
     this._postsService.getPosts(pullToRequest).subscribe(res => {
-      console.log("TAB! Posts: ", res)
+      console.log("TAB1 Posts: ", res)
       this.posts.push(...res.posts);
 
       if (event) {

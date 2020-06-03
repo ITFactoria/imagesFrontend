@@ -13,10 +13,21 @@ export class PostComponent implements OnInit {
   img1='assets/perro-1.jpg';
   img2='assets/perro-2.jpg';
   img3='assets/perro-3.jpg';
+  swCoordenadasNulas = true;
   
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("POST COORDENADAS: ", this.post.coordenadas)
+    if (this.post.coordenadas ==null){
+      console.log("coordenadas nulas")
+      
+    }
+    else{
+      this.swCoordenadasNulas = false;
+
+    }
+  }
 
 }

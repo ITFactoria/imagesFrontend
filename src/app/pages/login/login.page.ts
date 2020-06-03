@@ -53,7 +53,7 @@ export class LoginPage implements OnInit {
   }
 
   loginUser = {
-    email: "ruperto@mail",
+    email: "mechas@mail",
     password: "123456"
 
   }

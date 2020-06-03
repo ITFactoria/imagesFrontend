@@ -4,11 +4,12 @@ import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './post/post.component';
 import { IonicModule } from '@ionic/angular';
 import { PipesModule } from '../pipes/pipes.module';
+import { MapComponent } from './map/map.component';
 
 
 
 @NgModule({
-  declarations: [PostComponent, PostsComponent],
+  declarations: [PostComponent, PostsComponent, MapComponent],
   imports: [
     CommonModule, IonicModule, PipesModule
   ],
