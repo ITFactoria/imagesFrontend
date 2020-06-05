@@ -5,6 +5,8 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { IRespuestaPosts, IPost } from "../interfaces/interfaces";
 import { UserService } from './user.service';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+
 
 
 const HOST = environment.url;
@@ -24,7 +26,10 @@ export class PostsService {
   respuesta: IRespuestaPosts;
 
 
-  constructor(private _httpClient: HttpClient, private _usuarioService : UserService) { }
+  constructor(
+    private _httpClient: HttpClient, 
+    private _usuarioService : UserService, 
+    private _fileTransfer : FileTransfer) { }
 
   private formatErrors(error: any) {
     return throwError(error.error);
@@ -72,10 +77,24 @@ export class PostsService {
 
 
     })
+  }
 
+  uploadFile(img: string){
 
+    console.log("POSTSERVICE imagedata: ", img)
+    const options : FileUploadOptions ={
+      fileKey : 'image',
+      headers : { 'x-token' : this._usuarioService.token}
+    }
 
-
+    const fileTransfer : FileTransferObject = this._fileTransfer.create();
+    fileTransfer.upload(img, `${HOST}/api/file/upload`, options)
+    .then( data =>{
+      console.log("DATA: ", data);
+    })
+    .catch(err=>{
+      console.log("Err en Carga de archivo: ", err)
+    })
 
   }
 

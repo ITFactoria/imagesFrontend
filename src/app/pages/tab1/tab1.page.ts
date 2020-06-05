@@ -14,9 +14,12 @@ export class Tab1Page implements OnInit {
   pullToRequest : boolean;
 
 
-  constructor(private _postsService: PostsService) { }
+  constructor(private _postsService: PostsService) { 
+    console.log("CONSTRUCTOR");
+  }
   
   ngOnInit() {
+    console.log("TAB1INIT")
     this.loadPosts();
     this._postsService.nuevoPost.subscribe(post=>{
       console.log("POST a UNSHIFT: ", post)
@@ -33,6 +36,7 @@ export class Tab1Page implements OnInit {
   }
 
   loadPosts(event?, pullToRequest: boolean = false) {
+    console.log("LOAD POSTS")
 
     this._postsService.getPosts(pullToRequest).subscribe(res => {
       console.log("TAB1 Posts: ", res)

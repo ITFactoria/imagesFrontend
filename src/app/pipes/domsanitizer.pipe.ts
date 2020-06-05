@@ -6,11 +6,26 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class DomSanitizerPipe implements PipeTransform {
 
-  constructor(private _domSanitizer : DomSanitizer){}
+  constructor(private _domSanitizer: DomSanitizer) { }
 
   transform(img: string): any {
-    const doImg = `background-image:url('${img}')`
-    return this._domSanitizer.bypassSecurityTrustStyle(doImg);
+
+    //De la recomendacion
+    const domImg = `url('${img}')`;
+    return this._domSanitizer.bypassSecurityTrustStyle(domImg);
+
+
+    /*const doImg = `background-image: url('${img}')`;
+    let image = this._domSanitizer.bypassSecurityTrustStyle(img);
+    return image;*/
+
+    /* del video
+    const domImg = `background-image: url('${ img }')`;
+    return this._domSanitizer.bypassSecurityTrustStyle( domImg );*/
+
+    
+
+
   }
 
 }

@@ -36,9 +36,13 @@ export class Tab2Page {
 
   async crearPost() {
 
-    console.log("TAB 2CREAR POST ", this.post);
     let postCreado = await this._postService.createPost(this.post);
-
+    this.tempImages = [];
+    /*this.post = {
+      message: "",
+      coordenadas: "",
+      position: false
+    }*/
 
     if (!postCreado) {
       this._uIService.presentInfoAlert("Post no fue creado");
@@ -91,10 +95,10 @@ export class Tab2Page {
 
     this.procesarImagen(options);
 
-    
+
   }
 
-  procesarImagen(options : CameraOptions){
+  procesarImagen(options: CameraOptions) {
     this._camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
@@ -102,7 +106,8 @@ export class Tab2Page {
 
       //Path image
       const img = window.Ionic.WebView.convertFileSrc(imageData);
-      console.log("PATH: ", img)
+      console.log("PATH: ", img);
+      this._postService.uploadFile(imageData);
 
       this.tempImages.push(img);
     }, (err) => {
@@ -113,7 +118,7 @@ export class Tab2Page {
 
   }
 
-  galeria(){
+  galeria() {
     const options: CameraOptions = {
       quality: 60,
       destinationType: this._camera.DestinationType.FILE_URI,

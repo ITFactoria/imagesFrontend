@@ -12,6 +12,8 @@ import { HttpClientModule } from "@angular/common/http/";
 import { IonicStorageModule } from "@ionic/storage";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
     SplashScreen,
     Geolocation,
     Camera,
+    FileTransfer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
